@@ -10,14 +10,13 @@ export class PatientController {
 
     @Get()
     findAll(@Query() query): Patient[] {
-        console.log("Getting Patients...")
-        console.log(query);
+        Logger.log("Get Patients");
         return this.patientService.getPatients(query);
     }
 
     @Get(':id')
     findOne(@Param('id') id: number) {
-        Logger.log("Getting patient with id: " + id);
+        Logger.log("Get patient with id: " + id);
         var obj = this.patientService.getPatientById(id);
         if(!obj){
             throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
@@ -27,12 +26,13 @@ export class PatientController {
 
     @Post()
     create(@Body() patient: PatientDTO): Patient {
+        Logger.log("Create New Patient");
         return this.patientService.addPatient(patient);
     }
 
     @Put(':id')
     update(@Param('id') id: string, @Body() patientDto: PatientDTO): Patient {
-        Logger.log("On Put");
+        Logger.log("Update Patient with Id: " + id);
         var obj = this.patientService.updatePatient(patientDto);
         if (!obj) {
             throw new HttpException('Item Not Found', HttpStatus.NOT_FOUND);
@@ -42,6 +42,7 @@ export class PatientController {
 
     @Delete(':id')
     remove(@Param('id') id: number) {
+        Logger.log("Delete Patient with Id: " + id);
         if(!this.patientService.remove(id)){
             throw new HttpException("item Not Found", HttpStatus.NOT_FOUND);
         }

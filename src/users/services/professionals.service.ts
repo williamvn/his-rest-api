@@ -54,7 +54,6 @@ export class ProfessionalsService {
                 return false;
             }
         });
-        console.log(result);
         return result;
     }
 }
