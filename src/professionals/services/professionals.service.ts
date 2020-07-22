@@ -10,7 +10,6 @@ export class ProfessionalsService {
 
     getProfessionals(query): Professional[] {
         var queryKeys = Object.keys(query);
-        console.log(queryKeys);
         if (queryKeys.length > 0) {
             return this._professionals.filter(p => this.matchProfessional(p, query, queryKeys));
         }
@@ -22,7 +21,7 @@ export class ProfessionalsService {
     }
 
     addProfessional(professional: Professional): Professional {
-        professional.id = uuid();
+        professional.id = this._professionals.length;
         this._professionals.push(professional);
         return professional;
     }
