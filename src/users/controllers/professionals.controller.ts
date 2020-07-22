@@ -10,14 +10,13 @@ export class ProfessionalsController {
 
     @Get()
     findAll(@Query() query): Professional[] {
-        console.log(query);
         return this.professionalService.getProfessionals(query);
     }
 
     @Get(':id')
     findOne(@Param('id') id: number) {
+        Logger.log("Getting professional with id: " + id);
         var obj = this.professionalService.getProfessionalById(id);
-        console.log(obj);
         if(!obj){
             throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
         }
