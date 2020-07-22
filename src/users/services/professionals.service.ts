@@ -46,11 +46,10 @@ export class ProfessionalsService {
         return true;
     }
 
-
     private matchProfessional(professional: Professional, query, queryKeys: string[]): Boolean {
         var result: boolean = true;
         queryKeys.forEach(key => {
-            if (professional[key] !== query[key]) {
+            if (professional[key] != query[key]) {
                 result = false;
                 return false;
             }
