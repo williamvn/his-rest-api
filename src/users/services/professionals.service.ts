@@ -19,7 +19,6 @@ export class ProfessionalsService {
         //     return this._professionals.filter(p => this.matchProfessional(p, query, queryKeys));
         // }
         const all = await this.professionalModel.find({});
-        console.log(all);
         return all;
     }
 

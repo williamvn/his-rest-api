@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { InsuranceType } from '../domain/insurance-carrier.interface';
 
 export const patientSchema = new mongoose.Schema({
     id: Number,
@@ -16,11 +17,5 @@ export const patientSchema = new mongoose.Schema({
         city: String
     },
     NHC: String,
-    insuranceCarriers: [
-        {
-            name: String,
-            type: String,
-            cardNumber: String
-        }
-    ]
+    insuranceCarriers: Array<InsuranceType>()
 });

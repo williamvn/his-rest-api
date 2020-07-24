@@ -9,7 +9,7 @@ export class PatientController {
     constructor(private patientService: PatientsService) { }
 
     @Get()
-    findAll(@Query() query): Patient[] {
+    findAll(@Query() query): Promise<Patient[]> {
         Logger.log("Get Patients");
         return this.patientService.getPatients(query);
     }
@@ -25,10 +25,9 @@ export class PatientController {
     }
 
     @Post()
-    create(@Body() patient: PatientDTO): Patient {
-        // Logger.log("Create New Patient");
-        // return this.patientService.addPatient(patient);
-        return null;
+    create(@Body() patient: PatientDTO): Promise<Patient> {
+        Logger.log("Create New Patient");
+        return this.patientService.addPatient(patient);
     }
 
     @Put(':id')
