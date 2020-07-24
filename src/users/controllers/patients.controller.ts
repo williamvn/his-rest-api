@@ -31,14 +31,9 @@ export class PatientController {
     }
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() patientDto: PatientDTO): Patient {
+    update(@Param('id') id: string, @Body() patientDto: PatientDTO): Promise<Patient> {
         Logger.log("Update Patient with Id: " + id);
-        // var obj = this.patientService.updatePatient(patientDto);
-        // if (!obj) {
-        //     throw new HttpException('Item Not Found', HttpStatus.NOT_FOUND);
-        // }
-        // return obj;
-        return null;
+        return this.patientService.updatePatient(id, patientDto);
     }
 
     @Delete(':id')

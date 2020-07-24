@@ -30,14 +30,8 @@ export class PatientsService {
         return newPatient.save();
     }
 
-    updatePatient(id: string, patient: PatientDTO): Patient {
-        var index = this._patients.findIndex(p => p.id === id);
-        // if (index !== -1) {
-        //     this._patients[index] = patient;
-        //     return this._patients[index];
-        // }
-        // Logger.warn("Wrong Id");
-        return null;
+    async updatePatient(id: string, patient: PatientDTO): Promise<Patient> {
+        return this.patientModel.findByIdAndUpdate(id, patient, { new: true });
     }
 
     remove(id: string): boolean {
