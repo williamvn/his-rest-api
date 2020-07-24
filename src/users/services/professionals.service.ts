@@ -2,37 +2,45 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Professional } from '../domain/professional.interface';
 import { v1 as uuid } from 'uuid';
 import { ProfessionalDTO } from '../DTO/professional.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ProfessionalsService {
 
     private _professionals: Professional[] = [];
+    
+    constructor(@InjectModel("Professionals") private professionalModel: Model<Professional>){}
+    
 
-    getProfessionals(query): Professional[] {
-        var queryKeys = Object.keys(query);
-        if (queryKeys.length > 0) {
-            return this._professionals.filter(p => this.matchProfessional(p, query, queryKeys));
-        }
-        return this._professionals;
+    async getProfessionals(query): Promise<Professional[]> {
+        // var queryKeys = Object.keys(query);
+        // if (queryKeys.length > 0) {
+        //     return this._professionals.filter(p => this.matchProfessional(p, query, queryKeys));
+        // }
+        const all = await this.professionalModel.find({});
+        console.log(all);
+        return all;
     }
 
     getProfessionalById(id: number) {
         return this._professionals.find(p => p.id == id);
     }
 
-    addProfessional(professional: Professional): Professional {
+    async addProfessional(professional: ProfessionalDTO): Promise<Professional> {
         professional.id = this._professionals.length;
-        this._professionals.push(professional);
-        return professional;
+        const newProfessional = new this.professionalModel(professional);
+
+        return newProfessional.save();
     }
 
     updateProfessional(professional: ProfessionalDTO): Professional {
         var index = this._professionals.findIndex(p => p.id === professional.id);
-        if (index !== -1) {
-            this._professionals[index] = professional;
-            return this._professionals[index];
-        }
-        Logger.warn("Wrong Id");
+        // if (index !== -1) {
+        //     this._professionals[index] = professional;
+        //     return this._professionals[index];
+        // }
+        // Logger.warn("Wrong Id");
         return null;
     }
 

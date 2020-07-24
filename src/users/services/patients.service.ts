@@ -1,11 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Patient } from '../domain/patient.interface';
 import { PatientDTO } from '../DTO/patient.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class PatientsService { 
 
     private _patients: Patient[] = [];
+
+    constructor(@InjectModel("Patients") private patientModel: Model<Patient>){}
 
     getPatients(query): Patient[] {
         var queryKeys = Object.keys(query);
@@ -27,11 +31,11 @@ export class PatientsService {
 
     updatePatient(patient: PatientDTO): Patient {
         var index = this._patients.findIndex(p => p.id === patient.id);
-        if (index !== -1) {
-            this._patients[index] = patient;
-            return this._patients[index];
-        }
-        Logger.warn("Wrong Id");
+        // if (index !== -1) {
+        //     this._patients[index] = patient;
+        //     return this._patients[index];
+        // }
+        // Logger.warn("Wrong Id");
         return null;
     }
 

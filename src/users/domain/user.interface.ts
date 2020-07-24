@@ -1,11 +1,13 @@
 import { Address } from "./address.interface";
+import { Document } from "mongoose";
+
 
 export enum Gender{
     M="M",
     F= "F"
 }
-export interface User {
-    id: number;
+export interface User extends Document {
+    id:number;
     name: string;
     lastName: string;
     secondLastName: string;

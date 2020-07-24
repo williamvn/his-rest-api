@@ -1,8 +1,4 @@
-export enum InsuranceType {
-    Health = "Salud",
-    Family = "Familiar",
-    Dental = "Dental"
-}
+import { InsuranceType } from "../domain/insurance-carrier.interface";
 
 export class InsuranceCarrierDTO {
     name: string;

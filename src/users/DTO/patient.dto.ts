@@ -1,10 +1,6 @@
 import { InsuranceCarrierDTO } from './insurance-carrier.dto';
 import { AddressDTO } from "./address.dto";
-
-export enum Gender {
-    M = "M",
-    F = "F"
-}
+import { Gender } from '../domain/user.interface';
 
 export interface PatientDTO {
     id: number;

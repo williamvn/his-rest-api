@@ -26,8 +26,9 @@ export class PatientController {
 
     @Post()
     create(@Body() patient: PatientDTO): Patient {
-        Logger.log("Create New Patient");
-        return this.patientService.addPatient(patient);
+        // Logger.log("Create New Patient");
+        // return this.patientService.addPatient(patient);
+        return null;
     }
 
     @Put(':id')

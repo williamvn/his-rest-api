@@ -1,14 +1,9 @@
 import { AddressDTO } from "./address.dto";
+import { Gender } from "../domain/user.interface";
+import { ProfessionalType } from "../domain/professional.interface";
 
-export enum ProfessionalType{ 
-    Doctor ="Médico",
-    Nurse = "Enfermero",
-    Admin = "Administrativo"
-}
-export enum Gender{
-    M="M",
-    F= "F"
-}
+
+
 export interface ProfessionalDTO{
     id: number;
     name: string;

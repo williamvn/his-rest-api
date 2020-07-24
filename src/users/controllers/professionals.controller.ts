@@ -9,7 +9,7 @@ export class ProfessionalsController {
     constructor(private professionalService: ProfessionalsService) { }
 
     @Get()
-    findAll(@Query() query): Professional[] {
+    findAll(@Query() query): Promise<Professional[]> {
         Logger.log("Get Professionals");
         return this.professionalService.getProfessionals(query);
     }
@@ -25,9 +25,10 @@ export class ProfessionalsController {
     }
 
     @Post()
-    create(@Body() professional: ProfessionalDTO): Professional {
+    create(@Body() professional: ProfessionalDTO): Promise<Professional> {
         Logger.log("Create New Professional");
         return this.professionalService.addProfessional(professional);
+        // return null;
     }
 
     @Put(':id')
