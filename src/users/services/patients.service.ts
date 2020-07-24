@@ -12,11 +12,7 @@ export class PatientsService {
     constructor(@InjectModel("Patients") private patientModel: Model<Patient>) { }
 
     async getPatients(query): Promise<Patient[]> {
-        // var queryKeys = Object.keys(query);
-        // if (queryKeys.length > 0) {
-        //     return this._patients.filter(p => this.matchPatient(p, query, queryKeys));
-        // }
-        const all = await this.patientModel.find({});
+        const all = await this.patientModel.find(query);
         return all;
     }
 
@@ -32,8 +28,6 @@ export class PatientsService {
     async addPatient(patient: PatientDTO): Promise<Patient> {
         const newPatient = new this.patientModel(patient);
         return newPatient.save();
-        // this._patients.push(patient);
-        // return patient;
     }
 
     updatePatient(id: string, patient: PatientDTO): Patient {
