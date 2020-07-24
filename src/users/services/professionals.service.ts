@@ -22,19 +22,19 @@ export class ProfessionalsService {
         return all;
     }
 
-    getProfessionalById(id: number) {
+    getProfessionalById(id: string) {
         return this._professionals.find(p => p.id == id);
     }
 
     async addProfessional(professional: ProfessionalDTO): Promise<Professional> {
-        professional.id = this._professionals.length;
+        // professional.id = this._professionals.length;
         const newProfessional = new this.professionalModel(professional);
 
         return newProfessional.save();
     }
 
     updateProfessional(professional: ProfessionalDTO): Professional {
-        var index = this._professionals.findIndex(p => p.id === professional.id);
+        // var index = this._professionals.findIndex(p => p.id === professional.id);
         // if (index !== -1) {
         //     this._professionals[index] = professional;
         //     return this._professionals[index];
@@ -43,7 +43,7 @@ export class ProfessionalsService {
         return null;
     }
 
-    remove(id: number): boolean {
+    remove(id: string): boolean {
         var index = this._professionals.findIndex(p => p.id == id);
         var result = this._professionals.splice(index, 1);
         if (result.length == 0) {

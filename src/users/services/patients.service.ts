@@ -1,15 +1,15 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { Patient } from '../domain/patient.interface';
 import { PatientDTO } from '../DTO/patient.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 @Injectable()
-export class PatientsService { 
+export class PatientsService {
 
     private _patients: Patient[] = [];
 
-    constructor(@InjectModel("Patients") private patientModel: Model<Patient>){}
+    constructor(@InjectModel("Patients") private patientModel: Model<Patient>) { }
 
     async getPatients(query): Promise<Patient[]> {
         // var queryKeys = Object.keys(query);
@@ -20,20 +20,24 @@ export class PatientsService {
         return all;
     }
 
-    getPatientById(id: number) {
-        return this._patients.find(p => p.id == id);
+    async getPatientById(id: string): Promise<Patient> {
+        const patient = await this.patientModel.findById(id);
+        if (!patient) {
+            Logger.error("Item not Found");
+            throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
+        }
+        return patient;
     }
 
     async addPatient(patient: PatientDTO): Promise<Patient> {
-        patient.id = this._patients.length;
         const newPatient = new this.patientModel(patient);
         return newPatient.save();
         // this._patients.push(patient);
         // return patient;
     }
 
-    updatePatient(patient: PatientDTO): Patient {
-        var index = this._patients.findIndex(p => p.id === patient.id);
+    updatePatient(id: string, patient: PatientDTO): Patient {
+        var index = this._patients.findIndex(p => p.id === id);
         // if (index !== -1) {
         //     this._patients[index] = patient;
         //     return this._patients[index];
@@ -42,7 +46,7 @@ export class PatientsService {
         return null;
     }
 
-    remove(id: number): boolean {
+    remove(id: string): boolean {
         var index = this._patients.findIndex(p => p.id == id);
         var result = this._patients.splice(index, 1);
         if (result.length == 0) {

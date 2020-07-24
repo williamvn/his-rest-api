@@ -3,7 +3,6 @@ import { AddressDTO } from "./address.dto";
 import { Gender } from '../domain/user.interface';
 
 export interface PatientDTO {
-    id: number;
     name: string;
     lastName: string;
     secondLastName: string;

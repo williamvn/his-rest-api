@@ -7,7 +7,6 @@ export enum Gender{
     F= "F"
 }
 export interface User extends Document {
-    id:number;
     name: string;
     lastName: string;
     secondLastName: string;

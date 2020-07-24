@@ -17,11 +17,11 @@ export class ProfessionalsController {
     @Get(':id')
     findOne(@Param('id') id: number) {
         Logger.log("Get professional with id: " + id);
-        var obj = this.professionalService.getProfessionalById(id);
-        if(!obj){
-            throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
-        }
-        return obj;
+        // var obj = this.professionalService.getProfessionalById(id);
+        // if(!obj){
+        //     throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
+        // }
+        // return obj;
     }
 
     @Post()
@@ -42,7 +42,7 @@ export class ProfessionalsController {
     }
 
     @Delete(':id')
-    remove(@Param('id') id: number) {
+    remove(@Param('id') id: string) {
         Logger.log("Delete Professional with Id: " + id);
         if(!this.professionalService.remove(id)){
             throw new HttpException("item Not Found", HttpStatus.NOT_FOUND);

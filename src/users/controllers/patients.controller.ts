@@ -15,7 +15,7 @@ export class PatientController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: number) {
+    findOne(@Param('id') id: string):Promise<Patient> {
         Logger.log("Get patient with id: " + id);
         var obj = this.patientService.getPatientById(id);
         if (!obj) {
@@ -33,15 +33,16 @@ export class PatientController {
     @Put(':id')
     update(@Param('id') id: string, @Body() patientDto: PatientDTO): Patient {
         Logger.log("Update Patient with Id: " + id);
-        var obj = this.patientService.updatePatient(patientDto);
-        if (!obj) {
-            throw new HttpException('Item Not Found', HttpStatus.NOT_FOUND);
-        }
-        return obj;
+        // var obj = this.patientService.updatePatient(patientDto);
+        // if (!obj) {
+        //     throw new HttpException('Item Not Found', HttpStatus.NOT_FOUND);
+        // }
+        // return obj;
+        return null;
     }
 
     @Delete(':id')
-    remove(@Param('id') id: number) {
+    remove(@Param('id') id: string) {
         Logger.log("Delete Patient with Id: " + id);
         if (!this.patientService.remove(id)) {
             throw new HttpException("item Not Found", HttpStatus.NOT_FOUND);
