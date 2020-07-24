@@ -34,14 +34,8 @@ export class PatientsService {
         return this.patientModel.findByIdAndUpdate(id, patient, { new: true });
     }
 
-    remove(id: string): boolean {
-        var index = this._patients.findIndex(p => p.id == id);
-        var result = this._patients.splice(index, 1);
-        if (result.length == 0) {
-            Logger.error("Error deleting patient with id: " + id);
-            return false;
-        }
-        return true;
+    async remove(id: string):Promise<Patient> {
+        return this.patientModel.findByIdAndRemove(id);
     }
 
     private matchPatient(patient: Patient, query, queryKeys: string[]): Boolean {

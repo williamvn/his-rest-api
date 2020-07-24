@@ -37,13 +37,8 @@ export class PatientController {
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
+    remove(@Param('id') id: string):Promise<Patient> {
         Logger.log("Delete Patient with Id: " + id);
-        if (!this.patientService.remove(id)) {
-            throw new HttpException("item Not Found", HttpStatus.NOT_FOUND);
-        }
-        else {
-            return {};
-        }
+        return this.patientService.remove(id);
     }
 }
