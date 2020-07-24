@@ -8,17 +8,16 @@ import { Model } from 'mongoose';
 @Injectable()
 export class ProfessionalsService {
 
-    private _professionals: Professional[] = [];
-    
-    constructor(@InjectModel("Professionals") private professionalModel: Model<Professional>){}
-    
+    constructor(@InjectModel("Professionals") private professionalModel: Model<Professional>) { }
 
     async getProfessionals(query): Promise<Professional[]> {
-        return await this.professionalModel.find({query});
+        console.log(query);
+        const result = await this.professionalModel.find(query);
+        return result;
     }
 
-    async getProfessionalById(id: string):Promise<Professional> {
-        var professional =  this.professionalModel.findById(id);
+    async getProfessionalById(id: string): Promise<Professional> {
+        var professional = this.professionalModel.findById(id);
         if (!professional) {
             Logger.error("Item not Found");
             throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
@@ -31,28 +30,11 @@ export class ProfessionalsService {
         return newProfessional.save();
     }
 
-    async updateProfessional(id:string, professional: ProfessionalDTO): Promise<Professional> {
+    async updateProfessional(id: string, professional: ProfessionalDTO): Promise<Professional> {
         return this.professionalModel.findByIdAndUpdate(id, professional, { new: true });
     }
 
-    remove(id: string): boolean {
-        var index = this._professionals.findIndex(p => p.id == id);
-        var result = this._professionals.splice(index, 1);
-        if (result.length == 0) {
-            Logger.error("Error deleting element with id: " + id);
-            return false;
-        }
-        return true;
-    }
-
-    private matchProfessional(professional: Professional, query, queryKeys: string[]): Boolean {
-        var result: boolean = true;
-        queryKeys.forEach(key => {
-            if (professional[key] != query[key]) {
-                result = false;
-                return false;
-            }
-        });
-        return result;
+    async remove(id: string): Promise<Professional> {
+        return this.professionalModel.findByIdAndRemove(id);
     }
 }
