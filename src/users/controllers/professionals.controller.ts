@@ -17,11 +17,6 @@ export class ProfessionalsController {
     @Get(':id')
     findOne(@Param('id') id: number) {
         Logger.log("Get professional with id: " + id);
-        // var obj = this.professionalService.getProfessionalById(id);
-        // if(!obj){
-        //     throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
-        // }
-        // return obj;
     }
 
     @Post()
@@ -32,13 +27,10 @@ export class ProfessionalsController {
     }
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() professionalDto: ProfessionalDTO): Professional {
+    update(@Param('id') id: string, @Body() professionalDto: ProfessionalDTO): Promise<Professional> {
         Logger.log("Update Professional with Id: " + id);
-        var obj = this.professionalService.updateProfessional(professionalDto);
-        if (!obj) {
-            throw new HttpException('Item Not Found', HttpStatus.NOT_FOUND);
-        }
-        return obj;
+       return this.professionalService.updateProfessional(id, professionalDto);
+       
     }
 
     @Delete(':id')

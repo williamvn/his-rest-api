@@ -7,8 +7,6 @@ import { Model } from 'mongoose';
 @Injectable()
 export class PatientsService {
 
-    private _patients: Patient[] = [];
-
     constructor(@InjectModel("Patients") private patientModel: Model<Patient>) { }
 
     async getPatients(query): Promise<Patient[]> {

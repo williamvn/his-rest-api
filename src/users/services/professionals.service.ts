@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { Professional } from '../domain/professional.interface';
 import { v1 as uuid } from 'uuid';
 import { ProfessionalDTO } from '../DTO/professional.dto';
@@ -14,33 +14,25 @@ export class ProfessionalsService {
     
 
     async getProfessionals(query): Promise<Professional[]> {
-        // var queryKeys = Object.keys(query);
-        // if (queryKeys.length > 0) {
-        //     return this._professionals.filter(p => this.matchProfessional(p, query, queryKeys));
-        // }
-        const all = await this.professionalModel.find({});
-        return all;
+        return await this.professionalModel.find({query});
     }
 
-    getProfessionalById(id: string) {
-        return this._professionals.find(p => p.id == id);
+    async getProfessionalById(id: string):Promise<Professional> {
+        var professional =  this.professionalModel.findById(id);
+        if (!professional) {
+            Logger.error("Item not Found");
+            throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
+        }
+        return professional;
     }
 
     async addProfessional(professional: ProfessionalDTO): Promise<Professional> {
-        // professional.id = this._professionals.length;
         const newProfessional = new this.professionalModel(professional);
-
         return newProfessional.save();
     }
 
-    updateProfessional(professional: ProfessionalDTO): Professional {
-        // var index = this._professionals.findIndex(p => p.id === professional.id);
-        // if (index !== -1) {
-        //     this._professionals[index] = professional;
-        //     return this._professionals[index];
-        // }
-        // Logger.warn("Wrong Id");
-        return null;
+    async updateProfessional(id:string, professional: ProfessionalDTO): Promise<Professional> {
+        return this.professionalModel.findByIdAndUpdate(id, professional, { new: true });
     }
 
     remove(id: string): boolean {
