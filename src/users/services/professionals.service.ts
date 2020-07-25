@@ -11,7 +11,6 @@ export class ProfessionalsService {
     constructor(@InjectModel("Professionals") private professionalModel: Model<Professional>) { }
 
     async getProfessionals(query): Promise<Professional[]> {
-        console.log(query);
         const result = await this.professionalModel.find(query);
         return result;
     }

@@ -1,7 +1,18 @@
-export class AddressDTO{
-    street:string;
+import { IsInt, Min, Max, IsString, IsOptional } from "class-validator";
+
+export class AddressDTO {
+    street: string;
     no: number;
     door: string;
-    zipCode:number;
-    city:string; 
+
+    @IsInt()
+    @Min(10000, {
+        message: "ZipCode must contain 5 numbers"
+    })
+    @Max(100000, {
+        message: "ZipCode must contain 5 numbers"
+    })
+    @IsOptional()
+    zipCode: number;
+    city: string;
 }

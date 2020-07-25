@@ -4,7 +4,7 @@ import { Document } from "mongoose";
 
 export enum Gender{
     M="M",
-    F= "F"
+    F="F"
 }
 export interface User extends Document {
     name: string;
