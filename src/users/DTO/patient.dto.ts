@@ -1,8 +1,9 @@
 import { InsuranceCarrierDTO } from './insurance-carrier.dto';
 import { AddressDTO } from "./address.dto";
 import { Gender } from '../domain/user.interface';
-import {Length, IsDate, IsNotEmpty, IsDateString, ValidateNested, IsString, IsEnum, Allow, IsOptional} from 'class-validator';
+import {IsNotEmpty, IsDateString, ValidateNested, IsEnum, IsOptional, Validate} from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsDocumentId } from '../custom-validators/document-id.validator';
 
 export class PatientDTO {
     @IsNotEmpty()
@@ -23,6 +24,7 @@ export class PatientDTO {
     @IsOptional()
     birthDay: Date;
 
+    @Validate(IsDocumentId)
     documentationId: string;
 
     @ValidateNested()
