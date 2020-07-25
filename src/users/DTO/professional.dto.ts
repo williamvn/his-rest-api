@@ -4,7 +4,7 @@ import { ProfessionalType } from "../domain/professional.interface";
 
 
 
-export interface ProfessionalDTO{
+export class ProfessionalDTO{
     name: string;
     lastName: string;
     secondLastName: string;

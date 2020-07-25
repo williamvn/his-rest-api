@@ -2,7 +2,7 @@ import { InsuranceCarrierDTO } from './insurance-carrier.dto';
 import { AddressDTO } from "./address.dto";
 import { Gender } from '../domain/user.interface';
 
-export interface PatientDTO {
+export class PatientDTO {
     name: string;
     lastName: string;
     secondLastName: string;

@@ -1,4 +1,4 @@
-export interface AddressDTO{
+export class AddressDTO{
     street:string;
     no: number;
     door: string;
