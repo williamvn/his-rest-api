@@ -15,12 +15,7 @@ export class PatientsService {
     }
 
     async getPatientById(id: string): Promise<Patient> {
-        const patient = await this.patientModel.findById(id);
-        if (!patient) {
-            Logger.error("Item not Found");
-            throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
-        }
-        return patient;
+        return this.patientModel.findById(id);
     }
 
     async addPatient(patient: PatientDTO): Promise<Patient> {

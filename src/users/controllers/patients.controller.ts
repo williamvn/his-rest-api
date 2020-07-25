@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Body, Param, Logger, HttpException,
 import { Patient } from '../domain/patient.interface';
 import { PatientsService } from '../services/patients.service';
 import { PatientDTO } from '../DTO/patient.dto';
+import { MongoIdDTO } from '../DTO/mongo-id.dto';
 
 @Controller("patients")
 export class PatientController {
@@ -15,13 +16,14 @@ export class PatientController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string):Promise<Patient> {
-        Logger.log("Get patient with id: " + id);
-        var obj = this.patientService.getPatientById(id);
-        if (!obj) {
-            throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
+    async findOne(@Param() params: MongoIdDTO):Promise<Patient> {
+        Logger.log("Get patient with id: " + params.id);
+        var patient = await this.patientService.getPatientById(params.id);
+        if (!patient) {
+            Logger.error("Item not Found");
+            throw new HttpException("Item Not Found", HttpStatus.BAD_REQUEST);
         }
-        return obj;
+        return patient;
     }
 
     @Post()
@@ -31,14 +33,14 @@ export class PatientController {
     }
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() patientDto: PatientDTO): Promise<Patient> {
-        Logger.log("Update Patient with Id: " + id);
-        return this.patientService.updatePatient(id, patientDto);
+    update(@Param() params: MongoIdDTO, @Body() patientDto: PatientDTO): Promise<Patient> {
+        Logger.log("Update Patient with Id: " + params.id);
+        return this.patientService.updatePatient(params.id, patientDto);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string):Promise<Patient> {
-        Logger.log("Delete Patient with Id: " + id);
-        return this.patientService.remove(id);
+    remove(@Param() params: MongoIdDTO):Promise<Patient> {
+        Logger.log("Delete Patient with Id: " + params.id);
+        return this.patientService.remove(params.id);
     }
 }

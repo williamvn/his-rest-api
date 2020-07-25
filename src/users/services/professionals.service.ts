@@ -11,16 +11,11 @@ export class ProfessionalsService {
     constructor(@InjectModel("Professionals") private professionalModel: Model<Professional>) { }
 
     async getProfessionals(query): Promise<Professional[]> {
-        const result = await this.professionalModel.find(query);
-        return result;
+        return this.professionalModel.find(query);
     }
 
     async getProfessionalById(id: string): Promise<Professional> {
         var professional = this.professionalModel.findById(id);
-        if (!professional) {
-            Logger.error("Item not Found");
-            throw new HttpException("Item Not Found", HttpStatus.NOT_FOUND);
-        }
         return professional;
     }
 

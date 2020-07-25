@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Put, Logger, Param, HttpException, HttpStatus, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Logger, Param, HttpException, HttpStatus, Delete, Query, ParseUUIDPipe } from '@nestjs/common';
 import { ProfessionalsService } from '../services/professionals.service';
 import { Professional } from '../domain/professional.interface';
 import { ProfessionalDTO } from '../DTO/professional.dto';
+import { IsUUID } from 'class-validator';
+import { MongoIdDTO } from '../DTO/mongo-id.dto';
 
 @Controller('professionals')
 export class ProfessionalsController {
@@ -15,9 +17,14 @@ export class ProfessionalsController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string): Promise<Professional> {
-        Logger.log("Get professional with id: " + id);
-        return this.professionalService.getProfessionalById(id);
+    async findOne(@Param() params: MongoIdDTO): Promise<Professional> {
+        Logger.log("Get professional with id: " + params.id);
+        var professional = await this.professionalService.getProfessionalById(params.id);
+        if (!professional) {
+            Logger.error("Item not Found");
+            throw new HttpException("Item Not Found", HttpStatus.BAD_REQUEST);
+        }
+        return professional;
     }
 
     @Post()
@@ -27,16 +34,16 @@ export class ProfessionalsController {
     }
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() professionalDto: ProfessionalDTO): Promise<Professional> {
-        Logger.log("Update Professional with Id: " + id);
-        return this.professionalService.updateProfessional(id, professionalDto);
+    update(@Param() params: MongoIdDTO, @Body() professionalDto: ProfessionalDTO): Promise<Professional> {
+        Logger.log("Update Professional with Id: " + params.id);
+        return this.professionalService.updateProfessional(params.id, professionalDto);
 
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string): Promise<Professional> {
-        Logger.log("Delete Professional with Id: " + id);
-        return this.professionalService.remove(id);
+    remove(@Param() params: MongoIdDTO): Promise<Professional> {
+        Logger.log("Delete Professional with Id: " + params.id);
+        return this.professionalService.remove(params.id);
     }
 
 }

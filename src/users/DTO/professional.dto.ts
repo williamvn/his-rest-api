@@ -1,7 +1,7 @@
 import { AddressDTO } from "./address.dto";
 import { Gender } from "../domain/user.interface";
 import { ProfessionalType } from "../domain/professional.interface";
-import { IsNotEmpty, IsDateString, ValidateNested, IsString, IsEnum, IsOptional, Validate } from "class-validator";
+import { IsNotEmpty, IsDateString, ValidateNested, IsEnum, IsOptional, Validate } from "class-validator";
 import { Type } from "class-transformer";
 import { IsDocumentId } from "../custom-validators/document-id.validator";
 
@@ -14,8 +14,6 @@ export class ProfessionalDTO {
     @IsNotEmpty()
     lastName: string;
 
-    @IsString()
-    @IsOptional()
     secondLastName: string;
 
     @IsEnum(Gender, {
