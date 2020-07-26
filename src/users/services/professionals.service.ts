@@ -1,6 +1,5 @@
-import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable} from '@nestjs/common';
 import { Professional } from '../domain/professional.interface';
-import { v1 as uuid } from 'uuid';
 import { ProfessionalDTO } from '../DTO/professional.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';

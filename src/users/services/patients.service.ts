@@ -1,4 +1,4 @@
-import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable} from '@nestjs/common';
 import { Patient } from '../domain/patient.interface';
 import { PatientDTO } from '../DTO/patient.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -10,8 +10,7 @@ export class PatientsService {
     constructor(@InjectModel("Patients") private patientModel: Model<Patient>) { }
 
     async getPatients(query): Promise<Patient[]> {
-        const all = await this.patientModel.find(query);
-        return all;
+       return this.patientModel.find(query);
     }
 
     async getPatientById(id: string): Promise<Patient> {
@@ -29,16 +28,5 @@ export class PatientsService {
 
     async remove(id: string):Promise<Patient> {
         return this.patientModel.findByIdAndRemove(id);
-    }
-
-    private matchPatient(patient: Patient, query, queryKeys: string[]): Boolean {
-        var result: boolean = true;
-        queryKeys.forEach(key => {
-            if (patient[key] != query[key]) {
-                result = false;
-                return false;
-            }
-        });
-        return result;
     }
 }

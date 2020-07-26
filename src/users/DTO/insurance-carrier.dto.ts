@@ -1,5 +1,5 @@
 import { InsuranceType } from "../domain/insurance-carrier.interface";
-import { IsString, IsEnum, IsOptional } from "class-validator";
+import { IsEnum, IsOptional } from "class-validator";
 
 export class InsuranceCarrierDTO {
     name: string;
