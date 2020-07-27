@@ -14,8 +14,7 @@ export class ProfessionalsService {
     }
 
     async getProfessionalById(id: string): Promise<Professional> {
-        var professional = this.professionalModel.findById(id);
-        return professional;
+        return this.professionalModel.findById(id);
     }
 
     async addProfessional(professional: ProfessionalDTO): Promise<Professional> {

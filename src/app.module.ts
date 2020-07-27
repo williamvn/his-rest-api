@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { AppUsersModule } from './app-users/app-users.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { ConfigModule } from '@nestjs/config';
     MongooseModule.forRoot(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@${process.env.DBPATH}?retryWrites=true&w=majority`,
       {
         useFindAndModify: false
-      })
+      }),
+    AppUsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
