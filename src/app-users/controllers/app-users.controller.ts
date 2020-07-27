@@ -9,15 +9,16 @@ export class AppUsersController {
 
     @Post()
     async registerUser(@Body() appUserDto: AppUserDTO): Promise<AppUser> {
+        Logger.log("Registering a new User");
         try {
             return await this.appUserService.registerUser(appUserDto);
         }
         catch (error) {
+            Logger.error("Internal error trying to register an user", error);
             if (error.code == 11000) {
                 throw new HttpException("User Already Registered", HttpStatus.CONFLICT);
             }
             else{
-                Logger.error("Internal error trying to register an user");
                 throw new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }

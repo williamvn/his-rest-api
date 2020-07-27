@@ -10,6 +10,7 @@ import { appUserSchema } from './infraestructure/app-user.schema';
       { name: "AppUsers", schema: appUserSchema }
     ])],
   controllers: [AppUsersController],
-  providers: [AppUsersService]
+  providers: [AppUsersService],
+  exports:[AppUsersService]
 })
 export class AppUsersModule {}
