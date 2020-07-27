@@ -11,5 +11,4 @@ export class AppUsersController {
     registerUser(@Body() appUserDto: AppUserDTO):Promise<AppUser>{
         return this.appUserService.registerUser(appUserDto);
     }
-
 }
