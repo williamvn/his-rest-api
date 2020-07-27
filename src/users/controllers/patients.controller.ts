@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Logger, HttpException, HttpStatus, Query } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Logger, HttpException, HttpStatus, Query, UseGuards } from '@nestjs/common';
 import { Patient } from '../domain/patient.interface';
 import { PatientsService } from '../services/patients.service';
 import { PatientDTO } from '../DTO/patient.dto';
 import { MongoIdDTO } from '../DTO/mongo-id.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller("patients")
 export class PatientController {
 
@@ -16,7 +18,7 @@ export class PatientController {
     }
 
     @Get(':id')
-    async findOne(@Param() params: MongoIdDTO):Promise<Patient> {
+    async findOne(@Param() params: MongoIdDTO): Promise<Patient> {
         Logger.log("Get patient with id: " + params.id);
         var patient = await this.patientService.getPatientById(params.id);
         if (!patient) {
@@ -39,7 +41,7 @@ export class PatientController {
     }
 
     @Delete(':id')
-    remove(@Param() params: MongoIdDTO):Promise<Patient> {
+    remove(@Param() params: MongoIdDTO): Promise<Patient> {
         Logger.log("Delete Patient with Id: " + params.id);
         return this.patientService.remove(params.id);
     }

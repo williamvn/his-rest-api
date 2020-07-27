@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Put, Logger, Param, HttpException, HttpStatus, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Logger, Param, HttpException, HttpStatus, Delete, Query, UseGuards } from '@nestjs/common';
 import { ProfessionalsService } from '../services/professionals.service';
 import { Professional } from '../domain/professional.interface';
 import { ProfessionalDTO } from '../DTO/professional.dto';
 import { MongoIdDTO } from '../DTO/mongo-id.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('professionals')
 export class ProfessionalsController {
 

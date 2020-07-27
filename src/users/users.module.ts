@@ -6,9 +6,11 @@ import { PatientsService } from './services/patients.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { professionalSchema } from './infraestructure/professional.schema';
 import { patientSchema } from './infraestructure/patient.schema';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
+    AuthModule,
     MongooseModule.forFeature([
       { name: "Professionals", schema: professionalSchema },
       { name: "Patients", schema: patientSchema },
