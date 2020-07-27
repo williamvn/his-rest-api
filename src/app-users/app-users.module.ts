@@ -11,6 +11,6 @@ import { appUserSchema } from './infraestructure/app-user.schema';
     ])],
   controllers: [AppUsersController],
   providers: [AppUsersService],
-  exports:[AppUsersService]
+  exports: [AppUsersService]
 })
-export class AppUsersModule {}
+export class AppUsersModule { }
