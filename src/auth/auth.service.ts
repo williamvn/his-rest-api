@@ -11,7 +11,7 @@ export class AuthService {
         if (user) {
             const match = await bcrypt.compare(password, user.password);
             if (match) {
-                return user;
+                return user.username;
             }
         }
         return null;
