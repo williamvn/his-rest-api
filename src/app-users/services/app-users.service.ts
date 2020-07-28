@@ -11,9 +11,15 @@ export class AppUsersService {
     constructor(@InjectModel("AppUsers") private appUserModel: Model<AppUser>) { }
 
     async registerUser(appUser: AppUserDTO): Promise<AppUser> {
-        appUser.password = await bcrypt.hash(appUser.password, 10);
-        const newAppUser = new this.appUserModel(appUser);
-        return await newAppUser.save();
+        var user = await this.findOne(appUser.username);
+        console.log(user);
+        if(!user)
+        {
+            appUser.password = await bcrypt.hash(appUser.password, 10);
+            const newAppUser = new this.appUserModel(appUser);
+            return await newAppUser.save();
+        }
+        return null;
     }
 
     async findOne(username: string): Promise<AppUser>{

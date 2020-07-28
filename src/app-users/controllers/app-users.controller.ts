@@ -1,26 +1,22 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus, Logger, UseGuards } from '@nestjs/common';
 import { AppUserDTO } from '../DTO/app-user.dto';
 import { AppUsersService } from '../services/app-users.service';
-import { AppUser } from '../domain/app-user.interface';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
-@Controller('login')
+@Controller('user/register')
 export class AppUsersController {
     constructor(private appUserService: AppUsersService) { }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
-    async registerUser(@Body() appUserDto: AppUserDTO): Promise<AppUser> {
+    async registerUser(@Body() appUserDto: AppUserDTO) {
         Logger.log("Registering a new User");
-        try {
-            return await this.appUserService.registerUser(appUserDto);
+        const success = await this.appUserService.registerUser(appUserDto);
+        if (success) {
+            return { message: "New User Registered" };
         }
-        catch (error) {
-            Logger.error("Internal error trying to register an user", error);
-            if (error.code == 11000) {
-                throw new HttpException("User Already Registered", HttpStatus.CONFLICT);
-            }
-            else{
-                throw new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        else {
+            throw new HttpException("User Already Registered", HttpStatus.CONFLICT);
         }
     }
 }
