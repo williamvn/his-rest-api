@@ -6,9 +6,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AppUsersModule } from './app-users/app-users.module';
 import { AuthModule } from './auth/auth.module';
+import { CommandModule } from 'nestjs-command';
 
 @Module({
   imports: [
+    CommandModule,
     UsersModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@${process.env.DBPATH}?retryWrites=true&w=majority`,
