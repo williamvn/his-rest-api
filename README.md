@@ -48,6 +48,13 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## API Documetation
+Now that the API is running you can access to the API documentation, available in the route `/api` of the app. The documentation was build using Swagger, [here](https://swagger.io/) for more information
+
+Example:
+
+`localhost:3000/api`
+
 ## Test
 
 ```bash
@@ -60,3 +67,4 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
