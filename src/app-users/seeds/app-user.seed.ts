@@ -10,7 +10,7 @@ import * as bcrypt from "bcrypt";
 export class AppUserSeed {
     constructor(@InjectModel("AppUsers") private appUserModel: Model<AppUser>) { }
 
-    @Command({ command: 'create:app-user', describe: 'register a user', autoExit: true })
+    @Command({ command: 'create:admin-user', describe: 'register the user admind', autoExit: true })
     async create() {
         Logger.log("Database Seed Process Started");
         const appUser = {username: "Admin", password: "password"};
