@@ -78,7 +78,7 @@ ADMINPASSWORD=change-me
 Run the following command to seed the database with an Admin user.
 
 ```
-$ npx nestjs-command create:app-user
+$ npx nestjs-command create:admin-user
 ```
 
 Now if you have done this steps successfully you should have in your Mongo database, a collection named `appusers` which contain the super user (Admin) that will allow you register more users if you like.
