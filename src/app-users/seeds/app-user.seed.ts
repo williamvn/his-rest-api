@@ -13,7 +13,7 @@ export class AppUserSeed {
     @Command({ command: 'create:admin-user', describe: 'register the user admind', autoExit: true })
     async create() {
         Logger.log("Database Seed Process Started");
-        const appUser = {username: "Admin", password: "password"};
+        const appUser = {username: "Admin", password: `${process.env.ADMINPASSWORD}`};
         appUser.password = await bcrypt.hash(appUser.password, 10);
         const newAppUser = new this.appUserModel(appUser);
         await newAppUser.save();
