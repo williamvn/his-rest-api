@@ -155,3 +155,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Deployment
+A demo of this api rest has been deployed with Heroku at [https://his-rest-api.herokuapp.com/]
+
+
