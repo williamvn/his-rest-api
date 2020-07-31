@@ -1,5 +1,5 @@
 # HIS REST API
-Rest Api which maintain the users registered in the database through CRUD operations. This API is built with Next JS, TypeScript, Mongodb and Mongoose.
+Rest Api which maintain the users registered in the database through CRUD operations. This API is built with Nest JS, TypeScript, Mongodb and Mongoose.
 
 ## Description
 
