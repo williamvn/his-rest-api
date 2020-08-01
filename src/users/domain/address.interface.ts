@@ -2,6 +2,6 @@ export interface Address{
     street:string;
     no: number;
     door: string;
-    zipCode:number;
+    zipCode:string;
     city:string; 
 }

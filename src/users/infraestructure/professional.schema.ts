@@ -12,7 +12,7 @@ export const professionalSchema = new mongoose.Schema({
         street: String,
         no: Number,
         door: String,
-        zipCode: Number,
+        zipCode: String,
         city: String
     },
     noCollegiate: String,

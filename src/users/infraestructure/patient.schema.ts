@@ -12,7 +12,7 @@ export const patientSchema = new mongoose.Schema({
         street: String,
         no: Number,
         door: String,
-        zipCode: Number,
+        zipCode: String,
         city: String
     },
     NHC: String,

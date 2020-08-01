@@ -1,4 +1,4 @@
-import { IsInt, Min, Max, IsOptional } from "class-validator";
+import { IsInt, Min, Max, IsOptional, MinLength, MaxLength } from "class-validator";
 
 export class AddressDTO {
     street: string;
@@ -6,13 +6,13 @@ export class AddressDTO {
     door: string;
 
     @IsInt()
-    @Min(10000, {
+    @MinLength(5, {
         message: "ZipCode must contain 5 numbers"
     })
-    @Max(100000, {
+    @MaxLength(5, {
         message: "ZipCode must contain 5 numbers"
     })
     @IsOptional()
-    zipCode: number;
+    zipCode: string;
     city: string;
 }
