@@ -1,11 +1,11 @@
-import { IsInt, Min, Max, IsOptional, MinLength, MaxLength, IsNumberString } from "class-validator";
+import { IsInt, Min, Max, IsOptional, MinLength, MaxLength } from "class-validator";
 
 export class AddressDTO {
     street: string;
     no: number;
     door: string;
 
-    @IsNumberString()
+    @IsInt()
     @MinLength(5, {
         message: "ZipCode must contain 5 numbers"
     })
