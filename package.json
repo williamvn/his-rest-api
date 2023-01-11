@@ -34,7 +34,7 @@
     "@types/passport-local": "^1.0.33",
     "bcrypt": "^5.0.0",
     "class-transformer": "^0.3.1",
-    "class-validator": "^0.12.2",
+    "class-validator": "^0.14.0",
     "fastify-swagger": "^3.1.2",
     "mongoose": "^5.9.25",
     "nestjs-command": "^1.5.0",
